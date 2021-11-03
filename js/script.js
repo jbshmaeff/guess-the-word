@@ -29,7 +29,7 @@ const word = "magnolia";
 const placeholder = function (word) {
     const placeholderLetters = [];
     for (const letter of word) {
-        console.log(letter);
+        //console.log(letter);
         placeholderLetters.push("●");
     }
     wordInProgress.innerText = placeholderLetters.join ("");
@@ -40,7 +40,35 @@ placeholder(word);
 
 guessButton.addEventListener ("click", function (e) {
     e.preventDefault();
+    //empty message element text
+    message.innerText = "";
     const guess = letterInput.value;
-    console.log(guess);
+    //console.log(guess);
+    //make sure it's a single letter
+    const goodGuess = inputValidate(guess);
+
+    if (goodGuess) {
+        //We've got a letter!  Let's guess!
+        makeGuess(guess);
+    }
     letterInput.value = "";
-})
+});
+
+//Create a Function to Check Player's Input
+
+const inputValidate = function (letterInput) {
+    const acceptedLetter = /[a-zA-Z]/;
+    if (letterInput.length ===0) {
+        //if input is empty
+        message.innerText = "Please enter a letter.";
+    } else if (letterInput.length >1) {
+        //if input is more than one letter
+        message.innerText = "Please enter a single letter.";
+    } else if (!letterInput.match(acceptedLetter)) {
+        //did you type a number, special character, or other non-letter?
+        message.innerText = "Please enter a letter from A to Z.";
+    } else {
+        //Finally got a single letter!
+        return letterInput;
+    }
+};
