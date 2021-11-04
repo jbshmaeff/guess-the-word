@@ -1,5 +1,5 @@
 // The unordered list where the player’s guessed letters will appear.
-const guessedLetters = document.querySelector(".guessed-letters");
+const guessedLettersElement = document.querySelector(".guessed-letters");
 
 // The button with the text “Guess!” in it.
 const guessButton = document.querySelector(".guess");
@@ -17,12 +17,15 @@ const guessesRemaining = document.querySelector(".remaining");
 const span = document.querySelector(".remaining span");
 
 // The empty paragraph where messages will appear when the player guesses a letter.
-const message = document.querySelector("message");
+const message = document.querySelector(".message");
 
 // The hidden button that will appear prompting the player to play again.
 const playAgainButton = document.querySelector(".play-again");
 
 const word = "magnolia";
+
+//New Global variable for player guesses
+const guessedLetters = [];
 
 //Write a function to add placeholders for each letter
 
@@ -70,5 +73,15 @@ const inputValidate = function (letterInput) {
     } else {
         //Finally got a single letter!
         return letterInput;
+    }
+};
+
+const makeGuess = function (guess) {
+    guess = guess.toUpperCase(); //make all letters uppercase
+    if (guessedLetters.includes(guess)) {
+        message.innerText = "You've already chosen that letter, silly!  Try again!";
+    } else {
+        guessedLetters.push(guess);
+        console.log(guessedLetters);
     }
 };
